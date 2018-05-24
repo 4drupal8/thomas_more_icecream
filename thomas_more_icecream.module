@@ -6,5 +6,9 @@
  */
 
 function thomas_more_icecream_theme() {
-  return 'DD';
+  return [
+    'icecream' => [
+      'variables' => [],
+    ],
+  ];
 }
