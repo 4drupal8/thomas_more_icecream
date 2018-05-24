@@ -94,6 +94,8 @@ class IcecreamForm extends FormBase {
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $type = $form_state->getValue('type');
+
+    //Als ijs geselecteerd
     if($type == "ijs"){
       $taste = $form_state->getValue('smaak');
       $topping = 'geen';
@@ -102,8 +104,18 @@ class IcecreamForm extends FormBase {
       }else{
         $this->state->set('ijsTeller',1);
       }
+
+      if($this->state->get('ijsTeller') == $this->state->get('thomas_more_icecream.icecream_treshold')){
+        drupal_set_message('Maximum aantal ijsjes bereikt');
+        $this->state->set('ijsTeller',0);
+      }else{
+        drupal_set_message('Nieuw ijsje toegevoegd, aantal ijsjes ' . $this->state->get('ijsTeller'));
+      }
+
+
     }
 
+    //Als wafel geselecteerd
     if($type == "wafel"){
       $topping = "";
       foreach($form_state->getValue('topping') as $top){
@@ -115,6 +127,15 @@ class IcecreamForm extends FormBase {
       }else{
         $this->state->set('wafelTeller',1);
       }
+
+      if($this->state->get('wafelTeller') == $this->state->get('thomas_more_icecream.waffles_treshold')){
+        drupal_set_message('Maximum aantal wafels bereikt');
+        $this->state->set('wafelTeller',0);
+      }else{
+        drupal_set_message('Nieuwe wafel toegevoegd, aantal wafels ' . $this->state->get('wafelTeller'));
+      }
+
+
     }
     $this->IcecreamManager->addOption($type,$taste,$topping);
   }
