@@ -9,11 +9,11 @@ use Drupal\thomas_more_icecream\ClickManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Defines a social menu block.
+ * Defines a Icecream menu block.
  *
  * @Block(
  *  id = "thomas_more_icecream_block",
- *  admin_label = @Translation("Social media"),
+ *  admin_label = @Translation("Ice Cream Block"),
  * )
  */
 class IcecreamBlock extends BlockBase implements ContainerFactoryPluginInterface {
@@ -43,10 +43,6 @@ class IcecreamBlock extends BlockBase implements ContainerFactoryPluginInterface
    * {@inheritdoc}
    */
   public function build() {
-    return [
-      '#theme' => 'icecream',
-      '#attached' => ['library' => ['thomas_more_icecream/icecream']],
-
-    ];
+    return;
   }
 }
