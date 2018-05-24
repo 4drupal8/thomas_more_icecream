@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ *
+ */
+
+function thomas_more_icecream_theme() {
+  return 'DD';
+}
