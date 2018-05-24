@@ -5,7 +5,7 @@ namespace Drupal\thomas_more_icecream;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Database\Connection;
 
-class IcecreamManagerManager {
+class IcecreamManager {
 
   protected $connection;
 
