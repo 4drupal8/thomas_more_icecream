@@ -120,8 +120,6 @@ class IcecreamForm extends FormBase {
       }
       else {
         drupal_set_message('Nieuw ijsje toegevoegd, aantal ijsjes ' . $this->state->get('ijsTeller') . '/' . $this->state->get('thomas_more_icecream.icecream_treshold'));
-        $this->state->set('ijsTeller', 0);
-
       }
 
 
@@ -149,8 +147,6 @@ class IcecreamForm extends FormBase {
       else {
         drupal_set_message('Nieuwe wafel toegevoegd, aantal wafels ' . $this->state->get('wafelTeller') . '/' . $this->state->get('thomas_more_icecream.waffles_treshold'));
 
-        $this->state->set('wafelTeller', 0);
-
       }
 
 
@@ -158,6 +154,7 @@ class IcecreamForm extends FormBase {
     $this->IcecreamManager->addOption($type, $taste, $topping);
 
     if (isset($doorgaan)) {
+      $tekst = "";
       switch ($doorgaan) {
         case("wafel"):
           $objecten = $this->IcecreamManager->getAllBestellingen('wafel');
