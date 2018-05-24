@@ -39,8 +39,7 @@ class IcecreamBlock extends BlockBase implements ContainerFactoryPluginInterface
    * {@inheritdoc}
    */
   public function build() {
-    return [
-      '#theme' => 'icecream',
-    ];
+    $form = \Drupal::formBuilder()->getForm('Drupal\thomas_more_icecream\Form\IcecreamForm');
+    return $form;
   }
 }
