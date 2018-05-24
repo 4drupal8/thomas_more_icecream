@@ -74,8 +74,15 @@ class IcecreamForm extends FormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->state->set('thomas_more_icecream.icecream_treshold', $form_state->get('icecream_treshold'));
-    $this->state->set('thomas_more_icecream.waffles_treshold', $form_state->get('waffles_treshold'));
+    $this->state->set('thomas_more_icecream_counter.type', $form_state->get('type'));
+
+    if($form_state->get('type') == "ijs"){
+      $this->state->set('thomas_more_icecream_counter.taste', $form_state->get('smaak'));
+    }
+
+    /*$this->state->set('thomas_more_icecream.taste', $form_state->get('smaak'));
+    $this->state->set('thomas_more_icecream.topping', $form_state->get('toppings'));*/
+
   }
 
 }
