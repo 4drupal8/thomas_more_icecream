@@ -183,6 +183,7 @@ class IcecreamForm extends FormBase {
       $send = TRUE;
 
       $this->mailManager->mail($module, $key, $to, 'nl', $params, NULL, $send);
+      $doorgaan = NULL;
     }
   }
 }
