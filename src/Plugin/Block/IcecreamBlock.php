@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\thomas_more_social_media\Plugin\Block;
+namespace Drupal\thomas_more_icecream\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -16,7 +16,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *  admin_label = @Translation("Social media"),
  * )
  */
-
 class IcecreamBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   protected $clickManager;

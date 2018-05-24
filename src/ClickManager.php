@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\thomas_more_social_media;
+namespace Drupal\thomas_more_icecream;
 
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Database\Connection;
