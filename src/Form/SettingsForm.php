@@ -29,13 +29,13 @@ class SettingsForm extends FormBase {
 
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['icecream_treshold'] = [
-      "#type" => "int",
+      "#type" => "number",
       "#title" => "Icecream Treshold",
       "#default_value" => $this->state->get('thomas_more_icecream.icecream_treshold'),
     ];
 
     $form['waffles_treshold'] = [
-      "#type" => "int",
+      "#type" => "number",
       "#title" => "Waffle Treshold",
       "#default_value" => $this->state->get('thomas_more_icecream.waffles_treshold'),
     ];
@@ -50,8 +50,9 @@ class SettingsForm extends FormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->state->set('thomas_more_icecream.icecream_treshold', $form_state->get('icecream_treshold'));
-    $this->state->set('thomas_more_icecream.waffles_treshold', $form_state->get('waffles_treshold'));
+    $this->state->set('thomas_more_icecream.icecream_treshold', $form_state->getValue('icecream_treshold'));
+    $this->state->set('thomas_more_icecream.waffles_treshold', $form_state->getValue('waffles_treshold'));
+    drupal_set_message("Is opgeslagen");
   }
 
 }

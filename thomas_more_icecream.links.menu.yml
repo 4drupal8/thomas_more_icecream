@@ -1,0 +1,5 @@
+thomas_more_icecream.admin.settings:
+  title: 'Icecream Settings'
+  parent: system.admin_config_ui
+  description: 'Configure settings for icecream.'
+  route_name: thomas_more_icecream.admin.settings
