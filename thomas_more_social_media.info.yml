@@ -1,7 +1,0 @@
-name: Thomas More Social Media
-type: module
-description: 'Configure Social Media icons.'
-core: 8.x
-package: Thomas More
-dependencies: system
-
