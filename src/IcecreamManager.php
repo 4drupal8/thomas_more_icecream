@@ -35,4 +35,10 @@ class IcecreamManager {
     return (int) $query->countQuery()->execute()->fetchField();
   }
 
+  public function deleteAll(string $type) {
+    $this->connection->delete('thomas_more_icecream_counter')
+      ->condition('type', $type)
+      ->execute();
+  }
+
 }

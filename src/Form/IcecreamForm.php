@@ -162,6 +162,7 @@ class IcecreamForm extends FormBase {
               $tekst .= "<p>" . $object->topping . "</p>";
             }
           }
+          $this->IcecreamManager->deleteAll('wafel');
           break;
         case("ijs"):
           $objecten = $this->IcecreamManager->getAllBestellingen('ijs');
@@ -171,6 +172,7 @@ class IcecreamForm extends FormBase {
               $tekst .= "<p>" . $object->taste . "</p>";
             }
           }
+          $this->IcecreamManager->deleteAll('ijs');
           break;
       }
       $module = "thomas_more_icecream";
