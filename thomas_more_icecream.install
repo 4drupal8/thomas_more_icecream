@@ -30,26 +30,19 @@ function thomas_more_icecream_schema() {
         'not null' => FALSE,
         'default' => '',
       ],
-      'time_clicked' => [
-        'description' => 'Click counter',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
+    ],
+      'primary key' => [
+        'id',
       ],
-    ],
-    'primary key' => [
-      'id',
-    ],
   ];
 
   return $schema;
 }
 
 /**
- * Create Thomas More icecream counter table
+ * Create Thomas More icecream table
  */
-function thomas_more_icecream_update_8001(){
+function thomas_more_icecream_update_8002(){
   $table = thomas_more_icecream_schema();
   \Drupal::database()->schema()->createTable('thomas_more_icecream_counter', $table['thomas_more_icecream_counter']);
 }
