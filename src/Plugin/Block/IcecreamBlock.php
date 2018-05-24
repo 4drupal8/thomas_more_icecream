@@ -8,14 +8,6 @@ use Drupal\Core\State\StateInterface;
 use Drupal\thomas_more_social_media\ClickManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Defines a social menu block.
- *
- * @Block(
- *  id = "thomas_more_social_media_block",
- *  admin_label = @Translation("Social media"),
- * )
- */
 class IcecreamBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   protected $clickManager;
