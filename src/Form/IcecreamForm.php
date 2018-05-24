@@ -100,6 +100,7 @@ class IcecreamForm extends FormBase {
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $type = $form_state->getValue('type');
+    $doorgaan = NULL;
 
     //Als ijs geselecteerd
     if ($type == "ijs") {
@@ -114,11 +115,13 @@ class IcecreamForm extends FormBase {
 
       if ($this->state->get('ijsTeller') == $this->state->get('thomas_more_icecream.icecream_treshold')) {
         drupal_set_message('Maximum aantal ijsjes bereikt');
-        $this->state->set('ijsTeller',0);
-      }else{
-        drupal_set_message('Nieuw ijsje toegevoegd, aantal ijsjes ' . $this->state->get('ijsTeller') . '/' . $this->state->get('thomas_more_icecream.icecream_treshold'));
         $this->state->set('ijsTeller', 0);
         $doorgaan = "ijs";
+      }
+      else {
+        drupal_set_message('Nieuw ijsje toegevoegd, aantal ijsjes ' . $this->state->get('ijsTeller') . '/' . $this->state->get('thomas_more_icecream.icecream_treshold'));
+        $this->state->set('ijsTeller', 0);
+
       }
 
 
@@ -140,10 +143,12 @@ class IcecreamForm extends FormBase {
 
       if ($this->state->get('wafelTeller') == $this->state->get('thomas_more_icecream.waffles_treshold')) {
         drupal_set_message('Maximum aantal wafels bereikt');
-        $this->state->set('wafelTeller',0);
-      }else{
-        drupal_set_message('Nieuwe wafel toegevoegd, aantal wafels ' . $this->state->get('wafelTeller') . '/' . $this->state->get('thomas_more_icecream.waffles_treshold'));
+        $this->state->set('wafelTeller', 0);
         $doorgaan = "wafels";
+      }
+      else {
+        drupal_set_message('Nieuwe wafel toegevoegd, aantal wafels ' . $this->state->get('wafelTeller') . '/' . $this->state->get('thomas_more_icecream.waffles_treshold'));
+
         $this->state->set('wafelTeller', 0);
 
       }
