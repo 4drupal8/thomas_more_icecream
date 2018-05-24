@@ -17,22 +17,21 @@ class ClickManager {
   }
 
   public function addClick(string $network) {
-    $this->connection->insert('thomas_more_social_media_counter')
+    $this->connection->insert('thomas_more_icecream_counter')
       ->fields([
         'network' => $network,
         'time_clicked' => $this->time->getRequestTime(),
-      ])->execute()
-    ;
+      ])->execute();
   }
 
   public function getClicks(string $network) {
-    $query = $this->connection->select('thomas_more_social_media_counter', 't');
+    $query = $this->connection->select('thomas_more_icecream_counter', 't');
     $query->condition('t.network', $network);
     return (int) $query->countQuery()->execute()->fetchField();
   }
 
   public function removeClicks(string $network) {
-    $query = $this->connection->delete('thomas_more_social_media_counter');
+    $query = $this->connection->delete('thomas_more_icecream_counter');
     $query->condition('network', $network);
     return $query->execute();
   }

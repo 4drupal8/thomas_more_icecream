@@ -5,8 +5,17 @@ namespace Drupal\thomas_more_social_media\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\State\StateInterface;
-use Drupal\thomas_more_social_media\ClickManager;
+use Drupal\thomas_more_icecream\ClickManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
+/**
+ * Defines a social menu block.
+ *
+ * @Block(
+ *  id = "thomas_more_icecream_block",
+ *  admin_label = @Translation("Social media"),
+ * )
+ */
 
 class IcecreamBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
@@ -37,7 +46,7 @@ class IcecreamBlock extends BlockBase implements ContainerFactoryPluginInterface
   public function build() {
     return [
       '#theme' => 'icecream',
-      '#attached' => ['library' => ['thomas_more_icecream/icecream']]
+      '#attached' => ['library' => ['thomas_more_icecream/icecream']],
 
     ];
   }
