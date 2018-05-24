@@ -49,7 +49,6 @@ class IcecreamForm extends FormBase {
       "#title" => "Keuze van smaak",
       '#options' => $smaakoptions,
       '#description' => t('Welke smaak wil je nemen'),
-      '#default_value' => $smaakoptions['vanille'],
     ];
 
     $toppingsoptions = array(
