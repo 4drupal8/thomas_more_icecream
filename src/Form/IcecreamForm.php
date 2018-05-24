@@ -6,24 +6,30 @@ namespace Drupal\thomas_more_icecream\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Mail\MailManager;
 use Drupal\Core\State\StateInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\thomas_more_icecream\IcecreamManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class IcecreamForm extends FormBase {
 
   protected $state;
+
   protected $IcecreamManager;
 
-  public function __construct(StateInterface $state, IcecreamManager $IcecreamManager) {
+  protected $mailManager;
+
+  public function __construct(StateInterface $state, IcecreamManager $IcecreamManager, MailManager $mailmanager) {
     $this->state = $state;
     $this->IcecreamManager = $IcecreamManager;
+    $this->mailManager = $mailmanager;
   }
 
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('state'),
-      $container->get('thomas_more_icecream.icecream_manager')
+      $container->get('thomas_more_icecream.icecream_manager'),
+      $container->get('plugin.manager.mail')
     );
   }
 
@@ -96,47 +102,86 @@ class IcecreamForm extends FormBase {
     $type = $form_state->getValue('type');
 
     //Als ijs geselecteerd
-    if($type == "ijs"){
+    if ($type == "ijs") {
       $taste = $form_state->getValue('smaak');
       $topping = 'geen';
-      if($this->state->get('ijsTeller') != NULL) {
+      if ($this->state->get('ijsTeller') != NULL) {
         $this->state->set('ijsTeller', $this->state->get('ijsTeller') + 1);
-      }else{
-        $this->state->set('ijsTeller',1);
+      }
+      else {
+        $this->state->set('ijsTeller', 1);
       }
 
-      if($this->state->get('ijsTeller') == $this->state->get('thomas_more_icecream.icecream_treshold')){
+      if ($this->state->get('ijsTeller') == $this->state->get('thomas_more_icecream.icecream_treshold')) {
         drupal_set_message('Maximum aantal ijsjes bereikt');
         $this->state->set('ijsTeller',0);
       }else{
         drupal_set_message('Nieuw ijsje toegevoegd, aantal ijsjes ' . $this->state->get('ijsTeller') . '/' . $this->state->get('thomas_more_icecream.icecream_treshold'));
+        $this->state->set('ijsTeller', 0);
+        $doorgaan = "ijs";
       }
 
 
     }
 
     //Als wafel geselecteerd
-    if($type == "wafel"){
+    if ($type == "wafel") {
       $topping = "";
-      foreach($form_state->getValue('topping') as $top){
-        $topping  = $top . ',' . $topping;
+      foreach ($form_state->getValue('topping') as $top) {
+        $topping = $top . ',' . $topping;
       }
-      $taste ='geen';
-      if($this->state->get('wafelTeller') != NULL){
-        $this->state->set('wafelTeller',$this->state->get('wafelTeller')+1);
-      }else{
-        $this->state->set('wafelTeller',1);
+      $taste = 'geen';
+      if ($this->state->get('wafelTeller') != NULL) {
+        $this->state->set('wafelTeller', $this->state->get('wafelTeller') + 1);
+      }
+      else {
+        $this->state->set('wafelTeller', 1);
       }
 
-      if($this->state->get('wafelTeller') == $this->state->get('thomas_more_icecream.waffles_treshold')){
+      if ($this->state->get('wafelTeller') == $this->state->get('thomas_more_icecream.waffles_treshold')) {
         drupal_set_message('Maximum aantal wafels bereikt');
         $this->state->set('wafelTeller',0);
       }else{
         drupal_set_message('Nieuwe wafel toegevoegd, aantal wafels ' . $this->state->get('wafelTeller') . '/' . $this->state->get('thomas_more_icecream.waffles_treshold'));
+        $doorgaan = "wafels";
+        $this->state->set('wafelTeller', 0);
+
       }
 
 
     }
-    $this->IcecreamManager->addOption($type,$taste,$topping);
+    $this->IcecreamManager->addOption($type, $taste, $topping);
+
+    if (isset($doorgaan)) {
+      switch ($doorgaan) {
+        case("wafel"):
+          $objecten = $this->IcecreamManager->getAllBestellingen('wafel');
+          $tekst = "<p>Wafels</p>";
+          if (count($objecten) > 1) {
+            foreach ($objecten as $object) {
+              $tekst .= "<p>" . $object->topping . "</p>";
+            }
+          }
+          break;
+        case("ijs"):
+          $objecten = $this->IcecreamManager->getAllBestellingen('ijs');
+          $tekst = "<p>ijsjes</p>";
+          if (count($objecten) > 1) {
+            foreach ($objecten as $object) {
+              $tekst .= "<p>" . $object->taste . "</p>";
+            }
+          }
+          break;
+      }
+      $module = "thomas_more_icecream";
+      $key = 'send_mail';
+      $to = 'jeroen.tubex@interacto.com';
+
+      $params['message'] = $tekst;
+      $send = TRUE;
+
+      $this->mailManager->mail($module, $key, $to, 'nl', $params, NULL, $send);
+      $doorgaan = NULL;
+    }
   }
 }

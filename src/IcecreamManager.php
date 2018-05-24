@@ -2,7 +2,6 @@
 
 namespace Drupal\thomas_more_icecream;
 
-use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Database\Connection;
 
 class IcecreamManager {
@@ -21,6 +20,13 @@ class IcecreamManager {
         'taste' => $taste,
         'topping' => $topping,
       ])->execute();
+  }
+
+  public function getAllBestellingen(string $type) {
+    $query = $this->connection->select('thomas_more_icecream_counter', 't');
+    $query->condition('t.type', $type);
+    $query->fields('t');
+    return $query->execute()->fetchAll();
   }
 
   public function getAll(string $type) {
