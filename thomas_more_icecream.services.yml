@@ -1,0 +1,4 @@
+services:
+  thomas_more_icecream.icecream_manager:
+    class: Drupal\thomas_more_icecream\IcecreamManager
+    arguments: ['@database']

@@ -9,11 +9,9 @@ class IcecreamManager {
 
   protected $connection;
 
-  protected $time;
 
-  public function __construct(Connection $connection, TimeInterface $time) {
+  public function __construct(Connection $connection) {
     $this->connection = $connection;
-    $this->time = $time;
   }
 
   public function addOption(string $type, string $taste, string $topping) {
@@ -22,7 +20,6 @@ class IcecreamManager {
         'type' => $type,
         'taste' => $taste,
         'topping' => $topping,
-        'time_clicked' => $this->time->getRequestTime(),
       ])->execute();
   }
 

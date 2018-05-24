@@ -8,18 +8,22 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\State\StateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\thomas_more_icecream\IcecreamManager;
 
 class IcecreamForm extends FormBase {
 
   protected $state;
+  protected $IcecreamManager;
 
-  public function __construct(StateInterface $state) {
+  public function __construct(StateInterface $state, IcecreamManager $IcecreamManager) {
     $this->state = $state;
+    $this->IcecreamManager = $IcecreamManager;
   }
 
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('state')
+      $container->get('state'),
+      $container->get('thomas_more_icecream.icecream_manager')
     );
   }
 
@@ -87,22 +91,19 @@ class IcecreamForm extends FormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->state->set('thomas_more_icecream_counter.type', $form_state->get('type'));
-    if($form_state->get('type') == "ijs"){
-      $this->state->set('thomas_more_icecream_counter.taste', $form_state->get('smaak'));
-      $this->state->set('thomas_more_icecream_counter.topping', 'geen');
-    }
-    if($form_state->get('type') == "wafel"){
-      $this->state->set('thomas_more_icecream_counter.topping', $form_state->get('topping'));
-      $this->state->set('thomas_more_icecream_counter.taste', 'geen');
-
+    $type = $form_state->getValue('type');
+    if($type == "ijs"){
+      $taste = $form_state->getValue('smaak');
+      $topping = 'geen';
     }
 
-    /*$this->connection->insert('thomas_more_icecream_counter')
-      ->fields([
-        'type' => $this->state->get('thomas_more_icecream_counter.type'),
-        'taste' => $this->state->get('thomas_more_icecream_counter.taste'),
-        'topping' => $this->state->get('thomas_more_icecream_counter.topping'),
-      ])->execute();*/
+    if($type == "wafel"){
+      $topping = "";
+      foreach($form_state->getValue('topping') as $top){
+        $topping += $top;
+      }
+      $taste ='geen';
+    }
+    $this->IcecreamManager->addOption($type,$taste,$topping);
   }
 }

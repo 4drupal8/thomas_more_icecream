@@ -15,14 +15,13 @@ class ClickManager {
     $this->connection = $connection;
     $this->time = $time;
   }
-
-  public function addClick(string $network) {
+/*public function addClick(string $network) {
     $this->connection->insert('thomas_more_icecream_counter')
       ->fields([
         'network' => $network,
         'time_clicked' => $this->time->getRequestTime()ClickManager . php,
       ])->execute();
-  }
+  }*/
 
   public function getClicks(string $network) {
     $query = $this->connection->select('thomas_more_icecream_counter', 't');
