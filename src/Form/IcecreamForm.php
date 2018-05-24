@@ -109,7 +109,7 @@ class IcecreamForm extends FormBase {
         drupal_set_message('Maximum aantal ijsjes bereikt');
         $this->state->set('ijsTeller',0);
       }else{
-        drupal_set_message('Nieuw ijsje toegevoegd, aantal ijsjes ' . $this->state->get('ijsTeller'));
+        drupal_set_message('Nieuw ijsje toegevoegd, aantal ijsjes ' . $this->state->get('ijsTeller') . '/' . $this->state->get('thomas_more_icecream.icecream_treshold'));
       }
 
 
@@ -132,7 +132,7 @@ class IcecreamForm extends FormBase {
         drupal_set_message('Maximum aantal wafels bereikt');
         $this->state->set('wafelTeller',0);
       }else{
-        drupal_set_message('Nieuwe wafel toegevoegd, aantal wafels ' . $this->state->get('wafelTeller'));
+        drupal_set_message('Nieuwe wafel toegevoegd, aantal wafels ' . $this->state->get('wafelTeller') . '/' . $this->state->get('thomas_more_icecream.waffles_treshold'));
       }
 
 
