@@ -5,7 +5,6 @@ namespace Drupal\thomas_more_icecream\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\State\StateInterface;
-use Drupal\thomas_more_icecream\ClickManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -18,14 +17,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class IcecreamBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
-  protected $clickManager;
 
   protected $state;
 
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, StateInterface $state, ClickManager $clickManager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, StateInterface $state) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
-    $this->clickManager = $clickManager;
     $this->state = $state;
   }
 
@@ -34,8 +31,7 @@ class IcecreamBlock extends BlockBase implements ContainerFactoryPluginInterface
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('state'),
-      $container->get('thomas_more_icecream.click_manager')
+      $container->get('state')
     );
   }
 
@@ -43,6 +39,8 @@ class IcecreamBlock extends BlockBase implements ContainerFactoryPluginInterface
    * {@inheritdoc}
    */
   public function build() {
-    return;
+    return [
+      '#theme' => 'icecream',
+    ];
   }
 }
