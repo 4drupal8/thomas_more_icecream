@@ -142,7 +142,7 @@ class IcecreamForm extends FormBase {
       if ($this->state->get('wafelTeller') == $this->state->get('thomas_more_icecream.waffles_treshold')) {
         drupal_set_message('Maximum aantal wafels bereikt');
         $this->state->set('wafelTeller', 0);
-        $doorgaan = "wafels";
+        $doorgaan = "wafel";
       }
       else {
         drupal_set_message('Nieuwe wafel toegevoegd, aantal wafels ' . $this->state->get('wafelTeller') . '/' . $this->state->get('thomas_more_icecream.waffles_treshold'));
