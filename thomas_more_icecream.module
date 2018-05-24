@@ -12,3 +12,16 @@ function thomas_more_icecream_theme() {
     ],
   ];
 }
+
+/**
+ * Implements hook_mail().
+ */
+function thomas_more_icecream_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'send_mail':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('er zijn dingen besteld!');
+      $message['body'][] = $params['message'];
+      break;
+  }
+}
