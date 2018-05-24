@@ -5,7 +5,7 @@ namespace Drupal\thomas_more_icecream;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Database\Connection;
 
-class ClickManager {
+class IcecreamManager {
 
   protected $connection;
 
@@ -16,24 +16,20 @@ class ClickManager {
     $this->time = $time;
   }
 
-  public function addClick(string $network) {
+  public function addOption(string $type, string $taste, string $topping) {
     $this->connection->insert('thomas_more_icecream_counter')
       ->fields([
-        'network' => $network,
-        'time_clicked' => $this->time->getRequestTime()ClickManager . php,
+        'type' => $type,
+        'taste' => $taste,
+        'topping' => $topping,
+        'time_clicked' => $this->time->getRequestTime(),
       ])->execute();
   }
 
-  public function getClicks(string $network) {
+  public function getAll(string $type) {
     $query = $this->connection->select('thomas_more_icecream_counter', 't');
-    $query->condition('t.network', $network);
+    $query->condition('t.type', $type);
     return (int) $query->countQuery()->execute()->fetchField();
-  }
-
-  public function removeClicks(string $network) {
-    $query = $this->connection->delete('thomas_more_icecream_counter');
-    $query->condition('network', $network);
-    return $query->execute();
   }
 
 }
