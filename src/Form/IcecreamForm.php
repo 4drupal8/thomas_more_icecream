@@ -54,6 +54,7 @@ class IcecreamForm extends FormBase {
       "#title" => "Keuze van smaak",
       '#options' => $smaakoptions,
       '#description' => t('Welke smaak wil je nemen'),
+      '#default_value' => 'vanille',
       '#states' => [
         'visible' => [
           ':input[name="type"]' => [
@@ -96,6 +97,11 @@ class IcecreamForm extends FormBase {
     if($type == "ijs"){
       $taste = $form_state->getValue('smaak');
       $topping = 'geen';
+      if($this->state->get('ijsTeller') != NULL) {
+        $this->state->set('ijsTeller', $this->state->get('ijsTeller') + 1);
+      }else{
+        $this->state->set('ijsTeller',1);
+      }
     }
 
     if($type == "wafel"){
@@ -104,6 +110,11 @@ class IcecreamForm extends FormBase {
         $topping  = $top . ',' . $topping;
       }
       $taste ='geen';
+      if($this->state->get('wafelTeller') != NULL){
+        $this->state->set('wafelTeller',$this->state->get('wafelTeller')+1);
+      }else{
+        $this->state->set('wafelTeller',1);
+      }
     }
     $this->IcecreamManager->addOption($type,$taste,$topping);
   }
