@@ -41,6 +41,7 @@ class IcecreamForm extends FormBase {
       "#title" => "Keuze van desert",
       '#options' => $typeoptions,
       '#description' => t('Welke keuze wil je nemen'),
+      '#required' => TRUE,
     ];
 
     $smaakoptions = [
@@ -100,7 +101,7 @@ class IcecreamForm extends FormBase {
     if($type == "wafel"){
       $topping = "";
       foreach($form_state->getValue('topping') as $top){
-        $topping += $top;
+        $topping  = $top . ',' . $topping;
       }
       $taste ='geen';
     }
