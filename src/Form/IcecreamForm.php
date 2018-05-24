@@ -28,10 +28,10 @@ class IcecreamForm extends FormBase {
   }
 
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $typeoptions = array(
+    $typeoptions = [
       'ijs' => t('Ijs'),
       'wafel' => t('wafel'),
-    );
+    ];
     $form['type'] = [
       "#type" => "radios",
       "#title" => "Keuze van desert",
@@ -39,29 +39,42 @@ class IcecreamForm extends FormBase {
       '#description' => t('Welke keuze wil je nemen'),
     ];
 
-    $smaakoptions = array(
+    $smaakoptions = [
       'vanille' => t('Vanille'),
       'aardbij' => t('Aardbij'),
       'chocolade' => t('Chocolade'),
-    );
+    ];
     $form['smaak'] = [
       "#type" => "radios",
       "#title" => "Keuze van smaak",
       '#options' => $smaakoptions,
       '#description' => t('Welke smaak wil je nemen'),
+      '#states' => [
+        'visible' => [
+          ':input[name="type"]' => [
+            'value' => 'ijs',
+          ],
+        ],
+      ],
     ];
 
-    $toppingsoptions = array(
+    $toppingsoptions = [
       'slagroom' => t('Slagroom'),
       'suiker' => t('Suiker'),
-    );
+    ];
     $form['toppings'] = [
       "#type" => "checkboxes",
       "#title" => "Keuze van topping",
       '#options' => $toppingsoptions,
       '#description' => t('Welke topping wil je nemen'),
+      '#states' => [
+        'visible' => [
+          ':input[name="type"]' => [
+            'value' => 'wafel',
+          ],
+        ],
+      ],
     ];
-
 
 
     $form['submit'] = [
