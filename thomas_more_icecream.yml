@@ -1,0 +1,7 @@
+name: Thomas More Icecream
+type: module
+description: 'Order icecream or waffle with taste.'
+core: 8.x
+package: Thomas More
+dependencies: system
+

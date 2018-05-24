@@ -1,0 +1,17 @@
+social_media:
+  version: VERSION
+  css:
+    component:
+      https://use.fontawesome.com/releases/v5.0.13/css/all.css: { type: external }
+      assets/css/social-media.css : {}
+  js:
+    assets/js/thomas_more_social_media.counter.js: {}
+  dependencies:
+    - core/jquery
+data_charts:
+  version: VERSION
+  js:
+    https://www.gstatic.com/charts/loader.js: { type: external }
+    assets/js/thomas_more_social_media.charts.js: {}
+  dependencies:
+    - core/drupalSettings

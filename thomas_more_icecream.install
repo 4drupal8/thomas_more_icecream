@@ -1,0 +1,55 @@
+<?php
+
+function thomas_more_icecream_schema() {
+  $schema['thomas_more_icecream_counter'] = [
+    'fields' => [
+      'id' => [
+        'description' => 'The primary identifier.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'type' => [
+        'description' => 'Type of order (Icecream or Waffle)',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'taste' => [
+        'description' => 'The taste of a selected icecream',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => FALSE,
+        'default' => '',
+      ],
+      'topping' => [
+        'description' => 'The topping of a selected waffle',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => FALSE,
+        'default' => '',
+      ],
+      'time_clicked' => [
+        'description' => 'Click counter',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => [
+      'id',
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Create Thomas More icecream counter table
+ */
+function thomas_more_icecream_update_8001(){
+  $table = thomas_more_icecream_schema();
+  \Drupal::database()->schema()->createTable('thomas_more_icecream_counter', $table['thomas_more_icecream_counter']);
+}
